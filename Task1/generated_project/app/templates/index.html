@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Study Planner</title>
+  <style>
+    :root { --ink:#172033; --muted:#5c667a; --line:#d7ddeb; --paper:#fff; --blue:#2457d6; --green:#187861; --bg:#eef3fb; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: Arial, Helvetica, sans-serif; color:var(--ink); background:var(--bg); }
+    header { background:#172033; color:white; padding:26px 32px; }
+    header h1 { margin:0 0 6px; font-size:30px; letter-spacing:0; }
+    header p { margin:0; color:#cbd5e1; }
+    main { max-width:1180px; margin:0 auto; padding:28px 20px 48px; display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .panel { background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:22px; box-shadow:0 12px 28px rgba(23,32,51,.08); }
+    .visual { grid-column:1/-1; padding:0; overflow:hidden; }
+    .visual img { display:block; width:100%; height:auto; }
+    h2 { margin:0 0 16px; font-size:22px; }
+    label { display:block; margin:14px 0 6px; font-weight:700; }
+    input, select, textarea { width:100%; border:1px solid #b8c2d6; border-radius:6px; padding:11px 12px; font-size:15px; color:var(--ink); background:white; }
+    textarea { min-height:96px; resize:vertical; }
+    button { margin-top:18px; width:100%; border:0; border-radius:6px; padding:13px 16px; color:white; background:var(--blue); font-size:16px; font-weight:700; cursor:pointer; }
+    button.secondary { background:var(--green); }
+    button:disabled { opacity:.6; cursor:wait; }
+    .meta { color:var(--muted); font-size:14px; line-height:1.55; }
+    .plan-list { display:grid; gap:10px; }
+    .day-card { border:1px solid var(--line); border-left:5px solid var(--blue); border-radius:7px; padding:12px 14px; background:#fbfdff; }
+    .day-card strong { display:block; margin-bottom:4px; }
+    .risk { margin-top:14px; padding:12px 14px; border-radius:7px; background:#fff7ed; border:1px solid #fed7aa; color:#7c2d12; }
+    .empty { padding:24px; border:1px dashed #aab5ca; border-radius:7px; color:var(--muted); background:#f8fafc; }
+    @media (max-width:820px) { main { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AI Study Planner</h1>
+    <p>Generate a structured weekly plan from your course, deadline, study hours, and learning goal.</p>
+  </header>
+  <main>
+    <section class="panel visual">
+      <img src="/static/ai_study_planner.png" alt="Generated AI study planning dashboard image">
+    </section>
+    <section class="panel">
+      <h2>Create Plan</h2>
+      <form id="plannerForm">
+        <label for="course_name">Course name</label>
+        <input id="course_name" name="course_name" value="DTS114TC AI Software Engineering" required>
+        <label for="difficulty">Difficulty</label>
+        <select id="difficulty" name="difficulty" required>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard" selected>Hard</option>
+        </select>
+        <label for="available_hours">Available weekly hours</label>
+        <input id="available_hours" name="available_hours" type="number" min="1" step="0.5" value="8" required>
+        <label for="deadline">Deadline</label>
+        <input id="deadline" name="deadline" type="date" value="2026-06-07" required>
+        <label for="learning_goal">Learning goal</label>
+        <textarea id="learning_goal" name="learning_goal" required>Prepare coursework evidence, revise AI-DLC, and verify deployment.</textarea>
+        <button id="submitBtn" type="submit">Generate Study Plan</button>
+        <button class="secondary" id="sampleBtn" type="button">Load Sample Plan</button>
+      </form>
+    </section>
+    <section class="panel">
+      <h2>Generated Plan</h2>
+      <div id="summary" class="meta">No plan generated yet.</div>
+      <div id="planOutput" class="empty">Submit the form or load a sample plan.</div>
+    </section>
+  </main>
+  <script>
+    const form = document.getElementById("plannerForm");
+    const sampleBtn = document.getElementById("sampleBtn");
+    const submitBtn = document.getElementById("submitBtn");
+    const output = document.getElementById("planOutput");
+    const summary = document.getElementById("summary");
+    function formDataToJson(formElement) { return Object.fromEntries(new FormData(formElement).entries()); }
+    function renderPlan(plan) {
+      summary.textContent = `${plan.course_name} | ${plan.difficulty} | ${plan.available_hours} hours | deadline: ${plan.deadline}`;
+      const days = plan.weekly_plan.map(item => `<div class="day-card"><strong>${item.day}: ${item.topic}</strong><div>${item.task}</div><div class="meta">Estimated time: ${item.estimated_hours} hours</div></div>`).join("");
+      const risks = plan.risk_flags.map(flag => `<li>${flag}</li>`).join("");
+      output.className = "plan-list";
+      output.innerHTML = `${days}<div class="risk"><strong>Revision advice</strong><br>${plan.revision_advice}<ul>${risks}</ul></div>`;
+    }
+    function renderError(message) { output.className = "empty"; output.textContent = message; }
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      submitBtn.disabled = true;
+      try {
+        const response = await fetch("/api/plan", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(formDataToJson(form)) });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Request failed");
+        renderPlan(data);
+      } catch (error) {
+        renderError(`Unable to generate plan: ${error.message}`);
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+    sampleBtn.addEventListener("click", async () => {
+      try {
+        const response = await fetch("/api/sample-plan");
+        renderPlan(await response.json());
+      } catch (error) {
+        renderError(`Unable to load sample plan: ${error.message}`);
+      }
+    });
+  </script>
+</body>
+</html>
