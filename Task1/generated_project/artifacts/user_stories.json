@@ -1,0 +1,44 @@
+{
+  "user_stories": [
+    {
+      "id": 1,
+      "role": "Student",
+      "goal": "generate a weekly study plan from my course details",
+      "benefit": "I can organise study time more effectively",
+      "acceptance_criteria": [
+        "Given valid inputs, when I submit the form, then the system returns a weekly plan.",
+        "The response includes daily tasks, estimated hours, revision advice, and risk flags."
+      ]
+    },
+    {
+      "id": 2,
+      "role": "Student",
+      "goal": "see a sample plan before entering my own information",
+      "benefit": "I can understand what the system produces",
+      "acceptance_criteria": [
+        "GET /api/sample-plan returns a valid example plan.",
+        "The example contains the same structure as a generated plan."
+      ]
+    },
+    {
+      "id": 3,
+      "role": "Developer",
+      "goal": "check the health of the deployed API",
+      "benefit": "I can verify that deployment is working",
+      "acceptance_criteria": [
+        "GET /health returns status ok.",
+        "The response uses JSON and HTTP 200."
+      ]
+    },
+    {
+      "id": 4,
+      "role": "Developer",
+      "goal": "run automated tests before deployment",
+      "benefit": "I reduce the risk of releasing broken code",
+      "acceptance_criteria": [
+        "The project includes pytest tests.",
+        "GitHub Actions runs the tests on push."
+      ]
+    }
+  ]
+}

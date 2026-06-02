@@ -1,0 +1,19 @@
+@startuml
+skinparam componentStyle rectangle
+
+actor Student
+
+component "Web Interface" as WebUI
+component "Flask API" as API
+component "StudyPlanGenerator" as SPG
+artifact "JSON Study Plan" as JSON
+
+Student --> WebUI : enters preferences\nrequests plan
+WebUI --> API : HTTP(S) request
+API --> SPG : generatePlan(input)
+SPG --> API : plan JSON
+API --> WebUI : HTTP response (JSON)
+WebUI --> Student : displays study plan
+API --> JSON : outputs/returns
+
+@enduml

@@ -1,0 +1,1 @@
+Students lack an effective way to organise independent study time across multiple modules, leading to inefficient scheduling and missed learning targets; therefore, a web-based AI Study Planner is required to generate a personalised weekly study plan from the student’s course name, difficulty level, available study hours, learning goal, and deadline.
