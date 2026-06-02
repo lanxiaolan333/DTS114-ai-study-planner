@@ -1,0 +1,5 @@
+Flask
+flask-cors
+gunicorn
+pytest==8.4.2
+Pillow
