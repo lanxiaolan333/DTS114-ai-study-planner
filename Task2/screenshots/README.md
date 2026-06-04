@@ -5,7 +5,7 @@ Place these PNG files here before creating your submission zip:
 | File | What to capture |
 |------|-----------------|
 | `01_commit_records.png` | GitHub **Commits** page (full commit history) |
-| `02_website_deployment.png` | Live deployed site (dashboard image + planner form); address bar must show public `https://` URL |
+| `02_website_deployment.png` | GitHub Pages live site (dashboard image + planner form); e.g. `https://lanxiaolan333.github.io/DTS114-ai-study-planner/` |
 | `03_cicd_workflow.png` | GitHub **Actions** → `CI` workflow run **passed** (green) |
 
 Optional (portfolio / extra evidence):

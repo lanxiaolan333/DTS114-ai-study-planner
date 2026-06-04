@@ -28,6 +28,7 @@ Open `http://127.0.0.1:5000`
 
 - Public repository: version control and commit history on GitHub
 - CI: `.github/workflows/ci.yml` runs `pytest` on push
-- Deployment: see `Task2/deployment_notes.md`
+- Deployment: GitHub Pages from `docs/` (see `Task2/deployment_notes.md`)
+- Live site: `https://lanxiaolan333.github.io/DTS114-ai-study-planner/`
 
 API keys for LLM/image generation stay in `Task1/.env` (not committed).

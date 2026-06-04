@@ -16,33 +16,40 @@ Screenshot required:
 
 Capture the GitHub Actions `CI` workflow page after it passes successfully.
 
-## Deployment Evidence
+## Deployment Evidence (GitHub Pages)
 
 Screenshot required:
 
 - `Task2/screenshots/02_website_deployment.png`
 
-After deployment, capture the deployed website page showing the AI-generated dashboard image and the study planner form.
+### One-time GitHub setting
 
-### Railway (recommended)
+1. Open repository **Settings** → **Pages**.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
 
-1. [railway.app](https://railway.app) → **New Project** → deploy from this GitHub repository.
-2. **Root Directory**: `Task1/generated_project`
-3. Uses existing `Dockerfile` (`gunicorn app.main:app`) or set **Start Command**: `gunicorn app.main:app --bind 0.0.0.0:$PORT`
-4. **Generate Domain** for a public `https://` URL.
-5. No `APIFREE_API_KEY` required at runtime (static image is in `app/static/`).
+### Automatic deployment
 
-### Render (alternative)
+Workflow: `.github/workflows/pages.yml`
 
-- Root directory: `Task1/generated_project`
-- Build command: `pip install -r requirements.txt`
-- Start command: `gunicorn app.main:app`
+- Deploys the static site from the `docs/` folder on each push to `main`.
+- Public URL format:
 
-### PythonAnywhere (alternative)
+```text
+https://lanxiaolan333.github.io/DTS114-ai-study-planner/
+```
 
-Configure WSGI to import `application` from `app.main` in `Task1/generated_project`.
+### What is deployed
 
-## Local Verification Commands
+| Location | Role |
+|----------|------|
+| `docs/` | GitHub Pages website (HTML + AI dashboard image + client-side plan generator) |
+| `Task1/generated_project/` | Flask API source used locally and tested by CI (`pytest`) |
+
+GitHub Pages hosts static files only. The deployed site uses the same study-plan logic as the Flask app, implemented in browser JavaScript. The Flask API remains in the repository for Task 1 evidence and automated testing.
+
+Capture the live Pages URL showing the AI-generated dashboard image and the study planner form.
+
+## Local Flask verification
 
 Run from `Task1/generated_project`:
 
@@ -56,4 +63,3 @@ Open:
 ```text
 http://127.0.0.1:5000
 ```
-
