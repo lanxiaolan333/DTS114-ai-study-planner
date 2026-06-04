@@ -2,6 +2,8 @@
 
 AI-powered meta-software development coursework: one Jupyter Notebook generates SDLC artefacts, UML diagrams, a Flask API, a website with an AI dashboard image, tests, Docker configuration, and GitHub Actions CI/CD.
 
+**AI tools in this project:** APIFree (via `Task1/.env`) and LLM prompts inside the notebook. **GitHub Copilot was not used.**
+
 ## Repository structure
 
 ```text

@@ -1,6 +1,6 @@
 # AI Usage Log
 
-This file records the AI-specific tooling used by the notebook. API keys are loaded from `.env` and are never written into generated artefacts.
+This file records the AI-specific tooling used by the notebook (APIFree LLM and image API via prompts in `AI_DLC_Study_Planner_Generator.ipynb`). GitHub Copilot was not used. API keys are loaded from `Task1/.env` and are never written into generated artefacts.
 
 - Provider: apifree
 - Text model: openai/gpt-5.2
