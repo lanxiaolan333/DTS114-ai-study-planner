@@ -85,7 +85,7 @@
 
 ### NFR8 — Portability & Deployment
 - The application shall be deployable on a standard WSGI-compatible environment (e.g., Gunicorn).
-- The project shall use dependency management (e.g., `requirements.txt`) and configurable environment variables for secrets/keys.
+- The project shall use dependency management (e.g., `environment.yml`) and configurable environment variables for secrets/keys.
 
 ### NFR9 — Observability & Logging
 - The system shall log key events (requests, errors) with timestamps for troubleshooting.

@@ -51,9 +51,10 @@ Capture the live Pages URL showing the AI-generated dashboard image and the stud
 
 ## Local Flask verification
 
-Run from `Task1/generated_project`:
+From the repository root, use `environment.yml` (see root `README.md`), then run from `Task1/generated_project`:
 
 ```bash
+conda activate ai_in_se_chapter_04
 python -m pytest -q -p no:cacheprovider
 python app/main.py
 ```

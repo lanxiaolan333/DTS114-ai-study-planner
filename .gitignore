@@ -1,7 +1,9 @@
-# Secrets
+# Secrets (keep .env.example tracked)
 .env
 Task1/.env
 **/.env
+!**/.env.example
+!Task1/.env.example
 
 # Python caches
 __pycache__/
