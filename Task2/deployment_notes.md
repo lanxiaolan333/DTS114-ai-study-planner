@@ -2,9 +2,10 @@
 
 ## Version Control Evidence
 
-Screenshot required:
+Screenshots:
 
-- `Task2/screenshots/01_commit_records.png`
+- `Task2/screenshots/02_commit_records_1.png`
+- `Task2/screenshots/02_commit_records_2.png`
 
 Capture the GitHub commit history page after pushing the repository.
 
@@ -18,9 +19,10 @@ Capture the GitHub Actions `CI` workflow page after it passes successfully.
 
 ## Deployment Evidence (GitHub Pages)
 
-Screenshot required:
+Screenshots:
 
-- `Task2/screenshots/02_website_deployment.png`
+- `Task2/screenshots/01_website_deployment_1.png`
+- `Task2/screenshots/01_website_development_2.png`
 
 ### One-time GitHub setting
 
