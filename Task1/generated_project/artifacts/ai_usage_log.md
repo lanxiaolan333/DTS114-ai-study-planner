@@ -28,6 +28,7 @@ Students often struggle to organise independent study time across multiple modul
 They need a web-based AI Study Planner that generates a personalised weekly study plan
 based on course name, difficulty level, available study hours, learning goal, and deadline.
 - **api_endpoints**: Design RESTful Flask API endpoints for GET /, GET /health, GET /api/sample-plan, and POST /api/plan. Include request and response details.
+- **uml_use_case**: Generate only valid PlantUML for a use case diagram. Actor Student uses the AI Study Planner to enter course, difficulty, available hours, learning goal, and deadline; generate a weekly plan; and view a sample plan. Actor Developer checks API health.
 - **uml_component**: Generate only valid PlantUML for a component diagram with Student, Web Interface, Flask API, StudyPlanGenerator, and JSON Study Plan.
 - **uml_sequence**: Generate only valid PlantUML for a sequence diagram showing Student submitting study inputs and the Flask API returning a weekly plan.
 - **website**: Generate a website that displays an automatically generated image and calls POST /api/plan.
@@ -40,6 +41,7 @@ based on course name, difficulty level, available study hours, learning goal, an
 - **requirements**: api (openai/gpt-5.2)
 - **api_endpoints**: api (openai/gpt-5.2)
 - **user_stories_markdown**: api (openai/gpt-5.2)
+- **uml_use_case**: api (openai/gpt-5.2)
 - **uml_component**: api (openai/gpt-5.2)
 - **uml_sequence**: api (openai/gpt-5.2)
 - **ai_study_image**: api (openai/gpt-image-2)
