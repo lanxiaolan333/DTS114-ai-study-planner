@@ -22,13 +22,25 @@ Screenshot required:
 
 - `Task2/screenshots/02_website_deployment.png`
 
-Recommended Render settings:
+After deployment, capture the deployed website page showing the AI-generated dashboard image and the study planner form.
+
+### Railway (recommended)
+
+1. [railway.app](https://railway.app) → **New Project** → deploy from this GitHub repository.
+2. **Root Directory**: `Task1/generated_project`
+3. Uses existing `Dockerfile` (`gunicorn app.main:app`) or set **Start Command**: `gunicorn app.main:app --bind 0.0.0.0:$PORT`
+4. **Generate Domain** for a public `https://` URL.
+5. No `APIFREE_API_KEY` required at runtime (static image is in `app/static/`).
+
+### Render (alternative)
 
 - Root directory: `Task1/generated_project`
 - Build command: `pip install -r requirements.txt`
 - Start command: `gunicorn app.main:app`
 
-After deployment, capture the deployed website page showing the AI-generated dashboard image and the study planner form.
+### PythonAnywhere (alternative)
+
+Configure WSGI to import `application` from `app.main` in `Task1/generated_project`.
 
 ## Local Verification Commands
 
