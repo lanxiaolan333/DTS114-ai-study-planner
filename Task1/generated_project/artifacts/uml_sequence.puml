@@ -1,44 +1,27 @@
 @startuml
-title Weekly Study Plan Generation - Sequence Diagram
+title Sequence Diagram - Generate Study Plan
 
 actor Student
-participant "Web/Mobile UI" as UI
-participant "Flask API" as API
-participant "StudyPlanController" as SPC
-participant "InputValidator" as VAL
-participant "PlanService" as SVC
-participant "AI-DLC Model" as MODEL
-database "DB" as DB
+participant "Website UI" as Website
+participant "Flask API\n/api/plan" as API
+participant "StudyPlanGenerator" as Planner
+participant "JSON Response" as Response
 
-Student -> UI: Enter study inputs\n(subjects, goals, availability,\nconstraints, preferences)
-UI -> API: POST /weekly-plan\n(JSON payload)
+Student -> Website : Enter course, difficulty,\nhours, goal, deadline
+Student -> Website : Click "Generate Study Plan"
 
-API -> SPC: generateWeeklyPlan(request)
-SPC -> VAL: validateAndNormalize(payload)
-VAL --> SPC: validatedInputs / errors
-
-alt Invalid inputs
-  SPC --> API: 400 Bad Request\n(error details)
-  API --> UI: 400 Bad Request\n(validation errors)
-  UI --> Student: Show validation errors
-else Valid inputs
-  SPC -> SVC: buildPlan(validatedInputs)
-  SVC -> DB: fetchStudentProfile(studentId)
-  DB --> SVC: profile data
-  SVC -> MODEL: generateWeeklyPlan(inputs + profile)
-  MODEL --> SVC: draftWeeklyPlan
-  SVC -> VAL: validatePlan(draftWeeklyPlan)\n(check conflicts, time bounds)
-  VAL --> SVC: validatedPlan / issues
-  alt Plan issues detected
-    SVC -> MODEL: refinePlan(issues, constraints)
-    MODEL --> SVC: revisedWeeklyPlan
-  end
-  SVC -> DB: saveWeeklyPlan(studentId, plan)
-  DB --> SVC: saved(planId)
-  SVC --> SPC: planResponse(planId, plan)
-  SPC --> API: 200 OK\n(plan JSON)
-  API --> UI: 200 OK\n(weekly plan)
-  UI --> Student: Display weekly plan
+alt GitHub Pages deployed website
+  Website -> Website : Validate input in browser
+  Website -> Website : Generate study plan using\nbrowser-side logic
+  Website --> Student : Display weekly plan and dashboard
+else Local Flask application
+  Website -> API : POST /api/plan\nJSON preferences
+  API -> API : Validate request body
+  API -> Planner : generate_plan(preferences)
+  Planner --> API : Weekly study plan
+  API -> Response : Build JSON response
+  Response --> Website : Return plan data
+  Website --> Student : Display weekly plan and dashboard
 end
 
 @enduml

@@ -1,23 +1,28 @@
 @startuml
-left to right direction
-skinparam packageStyle rectangle
+title Use Case Diagram - AI Study Planner Generator
 
-title AI Study Planner - Use Case Diagram
+left to right direction
 
 actor Student
 actor Developer
 
-rectangle "AI Study Planner" {
-  usecase "Enter course and study preferences" as UC1
+rectangle "AI Study Planner Generator" {
+  usecase "Enter study preferences" as UC1
   usecase "Generate weekly study plan" as UC2
-  usecase "View sample study plan" as UC3
-  usecase "Check API health" as UC4
+  usecase "View AI-generated dashboard image" as UC3
+  usecase "View sample study plan" as UC4
+  usecase "Check API health" as UC5
+  usecase "Review generated artefacts" as UC6
 }
 
 Student --> UC1
 Student --> UC2
 Student --> UC3
-Developer --> UC4
-UC2 ..> UC1 : <<include>>
+Student --> UC4
+
+Developer --> UC5
+Developer --> UC6
+
+UC2 .> UC1 : <<include>>
 
 @enduml

@@ -1,19 +1,54 @@
 @startuml
+title Component Diagram - AI Study Planner Generator
+
 skinparam componentStyle rectangle
 
 actor Student
 
-component "Web Interface" as WebUI
-component "Flask API" as API
-component "StudyPlanGenerator" as SPG
-artifact "JSON Study Plan" as JSON
+package "GitHub Pages Deployment" {
+  [Static Website\nHTML/CSS/JavaScript] as Website
+  [AI-generated Dashboard Image\nai_study_planner.png] as Image
+  [Browser-side Planner Logic] as BrowserPlanner
+}
 
-Student --> WebUI : enters preferences\nrequests plan
-WebUI --> API : HTTP(S) request
-API --> SPG : generatePlan(input)
-SPG --> API : plan JSON
-API --> WebUI : HTTP response (JSON)
-WebUI --> Student : displays study plan
-API --> JSON : outputs/returns
+package "Generated Flask Application" {
+  [Flask API\napp/main.py] as API
+  [Study Plan Generator\nPython rule-based logic] as Planner
+  [HTML Template\nindex.html] as Template
+  [Static Assets\nCSS/Images] as StaticAssets
+}
+
+package "Generated SDLC Artefacts" {
+  [Problem Statement] as Problem
+  [Personas] as Personas
+  [Requirements] as Requirements
+  [User Stories] as Stories
+  [API Endpoint Documentation] as Endpoints
+  [UML Diagrams\nPlantUML] as UML
+}
+
+package "Quality and Deployment Evidence" {
+  [Pytest Test Suite] as Tests
+  [GitHub Actions CI] as CI
+  [Public GitHub Repository] as Repo
+}
+
+Student --> Website : uses
+Website --> Image : displays
+Website --> BrowserPlanner : generates plan in browser
+
+Template --> StaticAssets : loads
+API --> Planner : delegates plan generation
+API --> Template : renders local website
+
+Tests --> API : validates endpoints
+CI --> Tests : runs automatically
+Repo --> CI : triggers workflow on push
+
+Problem --> Requirements
+Requirements --> Stories
+Stories --> Endpoints
+Endpoints --> API
+UML --> API : models architecture
 
 @enduml
